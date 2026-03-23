@@ -193,6 +193,24 @@ public class StringPoolChunk extends Chunk<StringPoolChunk.H>{
     }
 
     private HashMap<String,LinkedList<StringItem>> map=new HashMap<String,LinkedList<StringItem>>();
+
+    /**
+     * Get the resource ID for a string with the given namespace.
+     * Returns -1 if not found or no resource ID assigned.
+     */
+    public int getResourceId(String namespace, String name) {
+        if (name == null) return -1;
+        name = preHandleString(name);
+        LinkedList<StringItem> list = map.get(name);
+        if (list == null) return -1;
+        if (namespace != null) namespace = preHandleString(namespace);
+        for (StringItem item : list) {
+            if (namespace == null && item.namespace == null) return item.id;
+            if (namespace != null && namespace.equals(item.namespace)) return item.id;
+        }
+        return -1;
+    }
+
     private String preHandleString(String s){
         return s;
     }
