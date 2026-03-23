@@ -35,37 +35,30 @@ it into the local Maven repo during the `clean` phase.
 
 ### Build Steps
 
-**One-liner (PowerShell):**
+**一键构建（双击即可运行）：**
 
-```powershell
-# From the parent project root:
-.\external\build_xml2axml.ps1
-
-# Or skip clean on subsequent builds:
-.\external\build_xml2axml.ps1 -SkipClean
+```
+external\build_xml2axml.cmd              完整构建（clean + package）
+external\build_xml2axml.cmd skip         跳过 clean（快速重编译）
 ```
 
-**Manual steps:**
+**手动步骤：**
 
-```powershell
-$env:JAVA_HOME = ".\external\TencentKona-17.0.16.b1"
-$MVN = ".\external\apache-maven-3.9.14\bin\mvn.cmd"
+```bat
+set JAVA_HOME=external\TencentKona-17.0.16.b1
+set MVN=external\apache-maven-3.9.14\bin\mvn.cmd
 
 cd external\xml2axml
 
-# First build: install local android.jar to Maven repo + compile + package
-& $MVN clean package
+REM 首次构建：安装本地 android.jar 到 Maven 仓库 + 编译打包
+call %MVN% clean package
 
-# Subsequent builds (skip android.jar install):
-& $MVN package
+REM 后续构建（跳过 android.jar 安装）：
+call %MVN% package
 ```
 
 The output fat jar is at `target/xml2axml-1.1.0-SNAPSHOT.jar`.  
-Copy it to `external/xml2axml.jar` to use with the main project:
-
-```powershell
-Copy-Item target\xml2axml-1.1.0-SNAPSHOT.jar ..\xml2axml.jar
-```
+The build script automatically copies it to `external/xml2axml.jar` for use with the main project.
 
 ### Build Notes
 
