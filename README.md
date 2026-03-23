@@ -57,7 +57,7 @@ REM 后续构建（跳过 android.jar 安装）：
 call %MVN% package
 ```
 
-The output fat jar is at `target/xml2axml-1.1.0-SNAPSHOT.jar`.  
+The output fat jar is at `target/xml2axml-1.2.0.jar`.  
 The build script automatically copies it to `external/xml2axml.jar` for use with the main project.
 
 ### Build Notes
