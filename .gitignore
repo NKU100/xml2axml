@@ -1,6 +1,4 @@
 .idea/
 target/
-data/
-build/
 *.iml
 dependency-reduced-pom.xml
